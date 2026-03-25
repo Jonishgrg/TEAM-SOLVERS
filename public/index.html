@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agro-Connect - Agricultural Trading Platform</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Loading Screen -->
+  <div id="loadingScreen" class="loading-screen show">
+    <div class="spinner"></div>
+    <p>Loading Agro-Connect...</p>
+  </div>
+
+  <!-- Header/Navigation -->
+  <header id="header" class="header">
+    <div class="header-content">
+      <div class="logo">
+        <img src="https://via.placeholder.com/50" alt="Logo">
+        <h1>Agro-Connect</h1>
+      </div>
+      <nav class="nav">
+        <button class="nav-btn active" data-page="home">Home</button>
+        <button class="nav-btn" data-page="prices">Market Prices</button>
+        <button class="nav-btn" data-page="techniques">Farming Tips</button>
+        <button class="nav-btn" data-page="weather">Weather</button>
+        <button class="nav-btn" data-page="experts">Ask Experts</button>
+        <button class="nav-btn" data-page="pest">Pest & Disease</button>
+        <button class="nav-btn" data-page="financial">Financial Help</button>
+      </nav>
+      <div class="auth-buttons">
+        <button id="loginBtn" class="btn-login">Login</button>
+        <button id="logoutBtn" class="btn-logout" style="display:none;">Logout</button>
+        <button id="profileBtn" class="btn-profile" style="display:none;">Profile</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-content">
+    <!-- Home Page -->
+    <div id="home" class="page active">
+      <div class="hero">
+        <div class="hero-text">
+          <h2>What we do</h2>
+          <p>Sajilo Krishi is a digital platform designed to make agricultural trading simple, transparent, and accessible for farmers and buyers. The main goal is to reduce the dependency of farmers on middlemen and help them directly connect with potential buyers.</p>
+          <button class="btn-lg">Learn More</button>
+        </div>
+        <div class="hero-image">
+          <img src="https://via.placeholder.com/400x300" alt="Agriculture">
+          <p>Connecting Farmers Directly to Fair Markets</p>
+        </div>
+      </div>
+
+      <!-- Features Section -->
+      <section class="features">
+        <h2>Our Features</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <h3>📊 Market Prices</h3>
+            <p>Real-time prices from Kalimati Market</p>
+          </div>
+          <div class="feature-card">
+            <h3>🌱 Farming Tips</h3>
+            <p>Expert agricultural techniques and guides</p>
+          </div>
+          <div class="feature-card">
+            <h3>🌦️ Weather</h3>
+            <p>Local weather forecasts and alerts</p>
+          </div>
+          <div class="feature-card">
+            <h3>🔬 Plant ID</h3>
+            <p>Identify plants and crops easily</p>
+          </div>
+          <div class="feature-card">
+            <h3>🐛 Pest Control</h3>
+            <p>Solutions for pests and diseases</p>
+          </div>
+          <div class="feature-card">
+            <h3>💰 Financial</h3>
+            <p>Loans and financial assistance</p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Market Prices Page -->
+    <div id="prices" class="page">
+      <h2>Market Prices</h2>
+      
+      <div class="prices-controls">
+        <input type="text" id="searchPrices" placeholder="Search commodity...">
+        <button id="refreshPrices" class="btn-refresh">Refresh Prices</button>
+      </div>
+
+      <div id="pricesLoading" class="loading">Loading prices...</div>
+      <div id="pricesError" class="error" style="display:none;"></div>
+
+      <div class="prices-info">
+        <span>Source: <strong id="pricesSource">static</strong></span>
+        <span>Last Updated: <strong id="pricesTime">-</strong></span>
+      </div>
+
+      <div class="prices-container">
+        <div class="prices-list" id="pricesList">
+          <!-- Prices will be loaded here -->
+        </div>
+      </div>
+
+      <!-- Show More Button -->
+      <div class="show-more-container">
+        <button id="showMoreBtn" class="btn-secondary" style="display:none;">Show More</button>
+      </div>
+    </div>
+
+    <!-- Farming Techniques Page -->
+    <div id="techniques" class="page">
+      <h2>Farming Techniques & Tips</h2>
+      
+      <div class="techniques-grid">
+        <div class="technique-card">
+          <h3>🌾 Crop Rotation</h3>
+          <p>Rotate crops annually to maintain soil fertility and reduce pest buildup. This ancient practice is key to sustainable farming.</p>
+          <button class="btn-learn">Learn More</button>
+        </div>
+        
+        <div class="technique-card">
+          <h3>💧 Irrigation Methods</h3>
+          <p>Drip irrigation and sprinkler systems save water while improving yield. Choose based on your crops and climate.</p>
+          <button class="btn-learn">Learn More</button>
+        </div>
+
+        <div class="technique-card">
+          <h3>🥗 Organic Farming</h3>
+          <p>Use natural fertilizers and avoid chemical pesticides. Organic farming improves soil health and produces premium crops.</p>
+          <button class="btn-learn">Learn More</button>
+        </div>
+
+        <div class="technique-card">
+          <h3>🌱 Seed Selection</h3>
+          <p>Choose quality seeds adapted to your region. Good seeds lead to better germination and higher yields.</p>
+          <button class="btn-learn">Learn More</button>
+        </div>
+
+        <div class="technique-card">
+          <h3>🧪 Soil Testing</h3>
+          <p>Test soil regularly for nutrients, pH, and contamination. Proper soil management ensures healthy crops.</p>
+          <button class="btn-learn">Learn More</button>
+        </div>
+
+        <div class="technique-card">
+          <h3>⏰ Timing</h3>
+          <p>Plant at the right season for your crops. Proper timing maximizes yield and reduces disease risk.</p>
+          <button class="btn-learn">Learn More</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Weather Page -->
+    <div id="weather" class="page">
+      <h2>Weather Forecast</h2>
+      
+      <div class="weather-search">
+        <input type="text" id="weatherLocation" placeholder="Enter location..." value="Kathmandu">
+        <button id="getWeatherBtn" class="btn-primary">Get Weather</button>
+      </div>
+
+      <div id="weatherLoading" class="loading" style="display:none;">Loading weather...</div>
+      <div id="weatherError" class="error" style="display:none;"></div>
+
+      <div id="weatherContent">
+        <div class="weather-current" id="weatherCurrent"></div>
+        <div class="weather-forecast" id="weatherForecast"></div>
+      </div>
+
+      <!-- World Clock -->
+      <div class="world-clock">
+        <h3>World Clock</h3>
+        <div id="clockContainer" class="clock-grid">
+          <!-- Times will be displayed here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Ask Experts Page -->
+    <div id="experts" class="page">
+      <h2>Ask Agricultural Experts</h2>
+      
+      <div class="experts-container">
+        <div class="ask-form">
+          <h3>Post Your Question</h3>
+          <form id="expertForm">
+            <input type="text" placeholder="Your name" required>
+            <input type="email" placeholder="Your email" required>
+            <input type="text" placeholder="Topic" required>
+            <textarea placeholder="Describe your question..." rows="5" required></textarea>
+            <button type="submit" class="btn-primary">Submit Question</button>
+          </form>
+        </div>
+
+        <div class="experts-list">
+          <h3>Our Experts</h3>
+          <div class="expert-cards" id="expertCards">
+            <div class="expert-card">
+              <h4>Dr. Ram Sharma</h4>
+              <p>Crop Specialist</p>
+              <p class="expert-bio">20 years experience in crop management and soil fertility</p>
+            </div>
+            <div class="expert-card">
+              <h4>Ms. Sita Patel</h4>
+              <p>Pest Management</p>
+              <p class="expert-bio">Specialized in organic pest control and disease prevention</p>
+            </div>
+            <div class="expert-card">
+              <h4>Mr. Hari Gautam</h4>
+              <p>Farming Techniques</p>
+              <p class="expert-bio">Expert in modern farming methods and irrigation systems</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Pest & Disease Page -->
+    <div id="pest" class="page">
+      <h2>Pest & Disease Management</h2>
+      
+      <div class="pest-container">
+        <div class="pest-search">
+          <input type="text" id="pestSearch" placeholder="Search pest or disease...">
+        </div>
+
+        <div class="pest-grid" id="pestGrid">
+          <div class="pest-card">
+            <h3>🐛 Aphids</h3>
+            <p><strong>Symptoms:</strong> Curled leaves, sticky residue, yellowing</p>
+            <p><strong>Solution:</strong> Spray neem oil or insecticidal soap. Use ladybugs for organic control.</p>
+            <p><strong>Prevention:</strong> Plant garlic and chives nearby to repel</p>
+          </div>
+
+          <div class="pest-card">
+            <h3>🦋 Caterpillars</h3>
+            <p><strong>Symptoms:</strong> Holes in leaves, frass (droppings)</p>
+            <p><strong>Solution:</strong> Hand-pick caterpillars or use Bt (Bacillus thuringiensis)</p>
+            <p><strong>Prevention:</strong> Use row covers on young plants</p>
+          </div>
+
+          <div class="pest-card">
+            <h3>🍄 Powdery Mildew</h3>
+            <p><strong>Symptoms:</strong> White powder on leaves, curling</p>
+            <p><strong>Solution:</strong> Spray sulfur or baking soda solution. Improve air circulation.</p>
+            <p><strong>Prevention:</strong> Water at soil level, not foliage</p>
+          </div>
+
+          <div class="pest-card">
+            <h3>🦗 Grasshoppers</h3>
+            <p><strong>Symptoms:</strong> Chewed leaf edges, skeletonized leaves</p>
+            <p><strong>Solution:</strong> Use neem oil or spinosad. Install fencing.</p>
+            <p><strong>Prevention:</strong> Remove weeds that harbor grasshoppers</p>
+          </div>
+
+          <div class="pest-card">
+            <h3>🌱 Root Rot</h3>
+            <p><strong>Symptoms:</strong> Wilting despite wet soil, dark roots</p>
+            <p><strong>Solution:</strong> Improve drainage. Remove affected plants.</p>
+            <p><strong>Prevention:</strong> Use well-draining soil and proper watering</p>
+          </div>
+
+          <div class="pest-card">
+            <h3>🦟 Whiteflies</h3>
+            <p><strong>Symptoms:</strong> Tiny white insects on leaf undersides, yellowing</p>
+            <p><strong>Solution:</strong> Yellow sticky traps. Spray neem oil regularly.</p>
+            <p><strong>Prevention:</strong> Plant beneficial flowers to attract predators</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Financial Help Page -->
+    <div id="financial" class="page">
+      <h2>Financial Assistance & Loans</h2>
+      
+      <div class="financial-container">
+        <div class="loan-programs">
+          <h3>Available Loan Programs</h3>
+          
+          <div class="loan-card">
+            <h3>👨‍🌾 Agricultural Loan</h3>
+            <p><strong>Interest Rate:</strong> 7-9% per annum</p>
+            <p><strong>Loan Amount:</strong> Up to Rs. 5,00,000</p>
+            <p><strong>Duration:</strong> 1-5 years</p>
+            <p><strong>Eligibility:</strong> Land ownership, age 18+</p>
+            <button class="btn-secondary">Apply Now</button>
+          </div>
+
+          <div class="loan-card">
+            <h3>🌾 Crop Loan</h3>
+            <p><strong>Interest Rate:</strong> 4% per annum (subsidized)</p>
+            <p><strong>Loan Amount:</strong> Up to Rs. 1,00,000</p>
+            <p><strong>Duration:</strong> 1 year (seasonal)</p>
+            <p><strong>Eligibility:</strong> Registered farmer</p>
+            <button class="btn-secondary">Apply Now</button>
+          </div>
+
+          <div class="loan-card">
+            <h3>📱 Machinery Loan</h3>
+            <p><strong>Interest Rate:</strong> 5% per annum</p>
+            <p><strong>Loan Amount:</strong> Up to Rs. 10,00,000</p>
+            <p><strong>Duration:</strong> 3-5 years</p>
+            <p><strong>Eligibility:</strong> Proof of need</p>
+            <button class="btn-secondary">Apply Now</button>
+          </div>
+
+          <div class="loan-card">
+            <h3>🏡 Land Development</h3>
+            <p><strong>Interest Rate:</strong> 6% per annum</p>
+            <p><strong>Loan Amount:</strong> Up to Rs. 15,00,000</p>
+            <p><strong>Duration:</strong> 5-10 years</p>
+            <p><strong>Eligibility:</strong> Land ownership proof</p>
+            <button class="btn-secondary">Apply Now</button>
+          </div>
+
+          <div class="loan-card">
+            <h3>🎓 Training Programs</h3>
+            <p><strong>Cost:</strong> Subsidized or Free</p>
+            <p><strong>Topics:</strong> Modern farming, organic methods</p>
+            <p><strong>Duration:</strong> 2-4 weeks</p>
+            <p><strong>Eligibility:</strong> All farmers</p>
+            <button class="btn-secondary">Enroll Now</button>
+          </div>
+
+          <div class="loan-card">
+            <h3>💳 Subsidy Programs</h3>
+            <p><strong>Coverage:</strong> Seeds, fertilizers, tools</p>
+            <p><strong>Subsidy %:</strong> 25-50%</p>
+            <p><strong>Duration:</strong> Ongoing</p>
+            <p><strong>Eligibility:</strong> Small/marginal farmers</p>
+            <button class="btn-secondary">Check Eligibility</button>
+          </div>
+        </div>
+
+        <div class="financial-info">
+          <h3>📞 Contact Information</h3>
+          <p><strong>Agricultural Department:</strong> 977-1-XXX-XXXX</p>
+          <p><strong>Loan Desk:</strong> 977-1-YYY-YYYY</p>
+          <p><strong>Email:</strong> info@agriculturenepal.gov.np</p>
+          <p><strong>Office Hours:</strong> 9 AM - 5 PM (Sun-Fri)</p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Chat Widget -->
+  <div id="chatWidget" class="chat-widget">
+    <button id="chatToggle" class="chat-toggle">💬</button>
+    <div id="chatWindow" class="chat-window" style="display:none;">
+      <div class="chat-header">
+        <h3>Agro-Connect Chat</h3>
+        <button id="chatClose" class="chat-close">✕</button>
+      </div>
+      <div class="chat-messages" id="chatMessages"></div>
+      <div class="chat-input">
+        <input type="text" id="chatInput" placeholder="Ask anything... (beta)">
+        <button id="chatSend">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal" style="display:none;">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h2>Login</h2>
+      <form id="loginForm">
+        <input type="email" placeholder="Email" required>
+        <input type="password" placeholder="Password" required>
+        <button type="submit" class="btn-primary">Login</button>
+      </form>
+      <p>Don't have an account? <a href="#" class="link">Sign up</a></p>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About</h4>
+        <p>Agro-Connect: Connecting farmers directly to markets</p>
+      </div>
+      <div class="footer-section">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#prices">Prices</a></li>
+          <li><a href="#weather">Weather</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Contact</h4>
+        <p>📧 info@agroconnect.com</p>
+        <p>📱 +977-1-XXX-XXXX</p>
+      </div>
+      <div class="footer-section">
+        <h4>Follow Us</h4>
+        <p>Facebook | Twitter | Instagram</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Agro-Connect. All rights reserved.</p>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
