@@ -27,7 +27,7 @@ const HomeContent = ({ setCurrentPage }) => {
             </div>
           </div>
           <p className="text-center text-gray-600 mt-6 font-medium">
-            Connecting Farmers Directly to Fair Markets[]
+            Connecting Farmers Directly to Fair Markets
           </p>
         </div>
       </div>

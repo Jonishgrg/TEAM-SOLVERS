@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const SeasonalFarming = () => {
-  const [activeTab, setActiveTab] = useState("calendar");
+  const [activeTab, setActiveTab] = useState("videos");
   const [showPremiumModal, setShowPremiumModal] = useState(false);
   const [showExpertModal, setShowExpertModal] = useState(false);
 
@@ -53,6 +53,7 @@ const SeasonalFarming = () => {
     },
   ];
 
+  // Seasonal Crop Calendar data
   const seasonalCrops = [
     {
       id: 1,
@@ -166,32 +167,6 @@ const SeasonalFarming = () => {
 
   return (
     <section>
-      {/* Expert Consultation Banner */}
-      <div className="bg-yellow-50 border border-yellow-200 p-6 rounded-xl shadow-md mb-8">
-        <div className="flex flex-col md:flex-row items-center justify-between">
-          <div className="mb-4 md:mb-0">
-            <h3 className="text-xl font-bold text-amber-800 mb-2">
-              Need Expert Advice on Farming?
-            </h3>
-            <p className="text-gray-700">
-              Get personalized consultation on fertilizers, pest control, soil health, 
-              or any farming-related questions from our certified agricultural experts.
-            </p>
-          </div>
-          <div className="flex gap-3">
-            <button 
-              onClick={() => setShowExpertModal(true)}
-              className="bg-amber-600 text-white py-2 px-4 rounded-lg hover:bg-amber-700"
-            >
-              Hire an Expert
-            </button>
-            <button className="border border-amber-600 text-amber-700 py-2 px-4 rounded-lg hover:bg-amber-50">
-              Ask a Question
-            </button>
-          </div>
-        </div>
-      </div>
-
       {/* Seasonal Crop Calendar */}
       <div className="mt-6 bg-white rounded-xl shadow-md overflow-hidden p-6 mb-8">
         <h3 className="flex items-center text-xl font-bold text-gray-800 mb-4">
@@ -221,19 +196,37 @@ const SeasonalFarming = () => {
         </div>
       </div>
 
+      {/* Expert Consultation Banner */}
+      <div className="bg-yellow-50 border border-yellow-200 p-6 rounded-xl shadow-md mb-8">
+        <div className="flex flex-col md:flex-row items-center justify-between">
+          <div className="mb-4 md:mb-0">
+            <h3 className="text-xl font-bold text-amber-800 mb-2">
+              Need Expert Advice on Farming?
+            </h3>
+            <p className="text-gray-700">
+              Get personalized consultation on fertilizers, pest control, soil health, 
+              or any farming-related questions from our certified agricultural experts.
+            </p>
+          </div>
+          <div className="flex flex-col gap-3 w-full md:flex-row md:w-auto md:gap-3">
+            <button 
+              onClick={() => setShowExpertModal(true)}
+              className="bg-amber-600 text-white py-2 px-4 rounded-lg hover:bg-amber-700 w-full md:w-auto"
+            >
+              Hire an Expert
+            </button>
+            <button className="border border-amber-600 text-amber-700 py-2 px-4 rounded-lg hover:bg-amber-50 w-full md:w-auto">
+              Ask a Question
+            </button>
+          </div>
+        </div>
+      </div>
+
+
       {/* Tabs for Videos, Crop Information, Success Stories */}
       <div className="mb-6">
         <div className="flex border-b border-gray-200">
-          <button
-            className={`py-3 px-6 font-medium ${
-              activeTab === "calendar"
-                ? "text-green-600 border-b-2 border-green-600"
-                : "text-gray-500 hover:text-green-500"
-            }`}
-            onClick={() => setActiveTab("calendar")}
-          >
-            Seasonal Calendar
-          </button>
+          {/* Seasonal Calendar tab removed as requested */}
           <button
             className={`py-3 px-6 font-medium ${
               activeTab === "videos"
@@ -324,58 +317,7 @@ const SeasonalFarming = () => {
         </div>
       )}
 
-      {/* Research Resource Section */}
-      <div className="bg-green-50 p-6 rounded-xl shadow-md mb-8">
-        <div className="flex flex-col md:flex-row items-start gap-6">
-          <div className="md:w-2/3">
-            <h3 className="text-xl font-bold text-green-800 mb-3">
-              Agricultural Research and Innovation for Food and Nutrition
-              Security in Nepal
-            </h3>
-            <p className="text-gray-700 mb-4">
-              This comprehensive research paper by Dr. Devendra Gauchan and
-              colleagues explores agricultural research and innovation
-              approaches to improve food and nutrition security in Nepal. The
-              paper addresses critical issues like food crisis, escalating
-              agricultural imports, and gaps in research and innovation.
-            </p>
-            <div className="bg-white p-4 rounded-lg mb-4">
-              <h4 className="font-bold text-gray-800 mb-2">Key Highlights:</h4>
-              <ul className="list-disc pl-5 space-y-1 text-gray-600">
-                <li>Current status of food and nutrition security in Nepal</li>
-                <li>Agricultural import growth trends and challenges</li>
-                <li>
-                  Role of agricultural research and innovation in food security
-                </li>
-                <li>Promising farming technologies and productivity gaps</li>
-                <li>Research and investment priorities for Nepal</li>
-              </ul>
-            </div>
-            <button className="bg-green-600 text-white py-2 px-4 rounded-lg hover:bg-green-700">
-              Download Research Paper
-            </button>
-          </div>
-          <div className="md:w-1/3 bg-white p-4 rounded-lg shadow-sm">
-            <img
-              src="/src/assets/PDF.png"
-              alt="Agricultural Research Document"
-              className="w-30 h-50 mb-3 rounded"
-            />
-            <div className="text-sm text-gray-600">
-              <p>
-                <strong>Authors:</strong> Devendra Gauchan, Ram Krishna
-                Shrestha, Krishna Timsina, et al.
-              </p>
-              <p>
-                <strong>Presented at:</strong> 7th SAS Convention, Kathmandu
-              </p>
-              <p>
-                <strong>Date:</strong> April 4, 2022
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+      {/* Research Resource Section removed as requested */}
     </section>
   );
 };
