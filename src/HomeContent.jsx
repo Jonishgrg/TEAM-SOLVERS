@@ -12,13 +12,13 @@ const HomeContent = ({ setCurrentPage }) => {
             The main goal of the platform is to reduce the dependency of farmers 
             on middlemen and help them directly connect with potential buyers.
           </p>
-          <button className="bg-gradient-to-r from-green-600 to-green-700 text-white font-bold py-3 px-8 rounded-full hover:shadow-lg hover:from-green-700 hover:to-green-800 transition-all">
+          <button onClick={() => setCurrentPage('blank')} className="bg-gradient-to-r from-green-600 to-green-700 text-white font-bold py-3 px-8 rounded-full hover:shadow-lg hover:from-green-700 hover:to-green-800 transition-all">
             Learn More
           </button>
         </div>
         <div className="md:w-1/2">
           <div className="flex flex-col items-center gap-6">
-            <div className="rounded-full overflow-hidden w-100 h-100">
+            <div className="rounded-full overflow-hidden" style={{ width: '400px', height: '400px' }}>
               <img
                 src="/favicon/logo.png"
                 alt="Sajilo Krishi Logo"
@@ -26,7 +26,7 @@ const HomeContent = ({ setCurrentPage }) => {
               />
             </div>
           </div>
-          <p className="text-center text-gray-600 mt-6 font-medium">
+          <p className="text-center text-gray-600 mt-2 font-bold text-lg">
             Connecting Farmers Directly to Fair Markets
           </p>
         </div>

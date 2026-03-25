@@ -66,7 +66,7 @@ const WorldClock = () => {
   );
 };
 
-const WeatherForecast = () => {
+const WeatherForecast = ({ setCurrentPage }) => {
   const [weatherData, setWeatherData] = useState(null);
   const [forecastData, setForecastData] = useState([]);
   const [location, setLocation] = useState('Kathmandu');
@@ -232,7 +232,7 @@ const WeatherForecast = () => {
               <p className="text-gray-700">Get precise agricultural forecasting, historical analysis, and SMS alerts</p>
             </div>
           </div>
-          <button className="bg-purple-600 hover:bg-purple-700 text-white py-2 px-6 rounded-lg text-sm font-medium">
+          <button onClick={() => setCurrentPage('blank')} className="bg-purple-600 hover:bg-purple-700 text-white py-2 px-6 rounded-lg text-sm font-medium">
             Upgrade to Premium
           </button>
         </div>
@@ -251,7 +251,7 @@ const WeatherForecast = () => {
                 <p className="text-gray-500">Updated just now</p>
               </div>
               <div className="flex items-center">
-                <button className="bg-green-50 hover:bg-green-100 text-green-600 font-medium py-2 px-4 rounded-lg text-sm">
+                <button onClick={() => setCurrentPage('blank')} className="bg-green-50 hover:bg-green-100 text-green-600 font-medium py-2 px-4 rounded-lg text-sm">
                   Subscribe to Alerts
                 </button>
               </div>
@@ -366,7 +366,7 @@ const WeatherForecast = () => {
               </div>
               
               <div className="flex justify-between items-center mt-4">
-                <button className="bg-green-600 text-white text-sm font-medium py-2 px-4 rounded hover:bg-green-700">
+                <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white text-sm font-medium py-2 px-4 rounded hover:bg-green-700">
                   Subscribe to SMS Alerts
                 </button>
                 <span className="text-xs text-gray-500">Coming soon: SMS Notifications</span>

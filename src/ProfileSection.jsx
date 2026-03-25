@@ -1,6 +1,6 @@
 import React from 'react';
 
-const ProfileSection = () => {
+const ProfileSection = ({ setCurrentPage }) => {
   return (
     <section>
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Farmer Profile</h2>
@@ -15,10 +15,10 @@ const ProfileSection = () => {
             <p className="text-gray-600 mb-4">Member since January 2024</p>
             
             <div className="w-full space-y-2">
-              <button className="w-full bg-green-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-green-700">
+              <button onClick={() => setCurrentPage('blank')} className="w-full bg-green-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-green-700">
                 Edit Profile
               </button>
-              <button className="w-full bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-200">
+              <button onClick={() => setCurrentPage('blank')} className="w-full bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-200">
                 Change Photo
               </button>
             </div>
@@ -122,7 +122,7 @@ const ProfileSection = () => {
               <p className="font-medium text-green-600">+ ₹920</p>
             </div>
           </div>
-          <button className="mt-4 text-green-600 font-medium text-sm">
+          <button onClick={() => setCurrentPage('blank')} className="mt-4 text-green-600 font-medium text-sm">
             View All Transactions →
           </button>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-const AskExperts = () => {
+const AskExperts = ({ setCurrentPage }) => {
   const recentQuestions = [
     { 
       id: 1, 
@@ -68,12 +68,12 @@ const AskExperts = () => {
                 <label className="block text-gray-700 mb-2">Attach Images (Optional)</label>
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-green-500 transition-colors">
                   <p className="text-gray-500 mb-2">Upload images to help experts better understand your issue</p>
-                  <button type="button" className="bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-200">
+                  <button type="button" onClick={() => setCurrentPage('blank')} className="bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-200">
                     Select Files
                   </button>
                 </div>
               </div>
-              <button className="bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700">
+              <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700">
                 Submit Question
               </button>
             </form>
@@ -95,7 +95,7 @@ const AskExperts = () => {
                 </div>
               ))}
             </div>
-            <button className="mt-6 text-green-600 font-medium flex items-center">
+            <button onClick={() => setCurrentPage('blank')} className="mt-6 text-green-600 font-medium flex items-center">
               View More Questions <span className="ml-1">→</span>
             </button>
           </div>

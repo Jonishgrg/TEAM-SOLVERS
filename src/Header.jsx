@@ -9,58 +9,59 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
   };
 
   return (
-    <header className="bg-cream-100 text-green-800 shadow-sm">
+    <header className="bg-cream-100 text-green-800 shadow-md">
       <div className="container mx-auto px-4">
-        <div className="flex justify-between items-center py-4">
-          <div className="flex items-center">
+        <div className="flex justify-between items-center py-2 gap-4">
+          <div className="flex-shrink-0 max-w-xs">
             <h1 className="logo" onClick={() => window.location.reload()}>
               <img 
                 src="/favicon/text-logo.png" 
                 alt="Logo" 
-                style={{ height: 'auto', width: '150px', cursor: 'pointer' }} 
+                style={{ height: 'auto', width: '220px', cursor: 'pointer' }} 
+                title="Click to refresh"
               />
             </h1>
           </div>
           
-          <div className="hidden md:flex items-center space-x-8">
+          <div className="hidden md:flex items-center space-x-6 flex-grow justify-center">
             <a 
               href="#" 
-              className={`hover:text-green-600 ${currentPage === 'home' ? 'font-bold border-b-2 border-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'home' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('home');}}
             >
               Home
             </a>
             <a 
               href="#" 
-              className={`hover:text-green-600 ${currentPage === 'market' ? 'font-bold border-b-2 border-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'market' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('market');}}
             >
               Market Prices
             </a>
             <a 
               href="#" 
-              className={`hover:text-green-600 ${currentPage === 'techniques' ? 'font-bold border-b-2 border-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'techniques' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('techniques');}}
             >
               Seasonal Farming
             </a>
             <a 
               href="#" 
-              className={`hover:text-green-600 ${currentPage === 'ask' ? 'font-bold border-b-2 border-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'ask' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('ask');}}
             >
               Ask
             </a>
             <a 
               href="#" 
-              className={`hover:text-green-600 ${currentPage === 'weather' ? 'font-bold border-b-2 border-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'weather' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('weather');}}
             >
               Weather
             </a>
             <a 
               href="#" 
-              className={`hover:text-green-600 ${currentPage === 'financial' ? 'font-bold border-b-2 border-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'financial' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('financial');}}
             >
               Financial Help
@@ -72,7 +73,7 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
             {isLoggedIn ? (
               <div className="relative">
                 <button 
-                  className="p-2 rounded-full text-gray-700 text-xl hover:text-green-600"
+                  className="p-2 rounded-full text-xl text-gray-700 hover:text-green-600 transition"
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
                 >
                   👤
@@ -82,7 +83,7 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
                     <div className="py-1">
                       <a 
                         href="#" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition"
                         onClick={(e) => {
                           e.preventDefault(); 
                           setCurrentPage('profile');
@@ -93,7 +94,7 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
                       </a>
                       <a 
                         href="#" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition"
                         onClick={(e) => {
                           e.preventDefault(); 
                           setCurrentPage('dashboard');
@@ -104,7 +105,7 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
                       </a>
                       <a 
                         href="#" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition"
                         onClick={(e) => {
                           e.preventDefault(); 
                           setCurrentPage('transactions');
@@ -116,7 +117,7 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
                       <div className="border-t border-gray-100"></div>
                       <a 
                         href="#" 
-                        className="block px-4 py-2 text-sm text-red-600 hover:bg-green-50"
+                        className="block px-4 py-2 text-sm text-red-600 hover:bg-green-50 transition"
                         onClick={(e) => {
                           e.preventDefault();
                           setShowProfileMenu(false);

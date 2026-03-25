@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FinancialHelp = () => {
+const FinancialHelp = ({ setCurrentPage }) => {
   const subsidyData = [
     { 
       id: 1, 
@@ -72,7 +72,7 @@ const FinancialHelp = () => {
                     <p className="text-sm text-gray-500">
                       Deadline: <span className="font-medium">{item.deadline}</span>
                     </p>
-                    <button className="bg-green-600 text-white text-sm font-medium py-1 px-3 rounded hover:bg-green-700">
+                    <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white text-sm font-medium py-1 px-3 rounded hover:bg-green-700">
                       Apply Now
                     </button>
                   </div>
@@ -117,7 +117,7 @@ const FinancialHelp = () => {
                   className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
-              <button className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700">
+              <button onClick={() => setCurrentPage('blank')} className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700">
                 Check Eligibility
               </button>
             </form>

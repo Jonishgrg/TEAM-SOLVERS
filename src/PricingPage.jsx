@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const PricingPage = () => {
+const PricingPage = ({ setCurrentPage }) => {
   const [billingPeriod, setBillingPeriod] = useState('monthly');
   
   const plans = [
@@ -154,7 +154,7 @@ const PricingPage = () => {
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
             We understand that every farming operation is unique. Contact us to discuss a custom plan tailored to your specific needs.
           </p>
-          <button className="bg-green-600 text-white py-3 px-8 rounded-lg font-medium hover:bg-green-700">
+          <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white py-3 px-8 rounded-lg font-medium hover:bg-green-700">
             Contact Our Team
           </button>
         </div>

@@ -33,7 +33,7 @@ const ChangeMapView = ({ center }) => {
   return null;
 };
 
-const MarketPrices = () => {
+const MarketPrices = ({ setCurrentPage }) => {
   const [marketPriceData, setMarketPriceData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [visibleData, setVisibleData] = useState([]); // First 8 items
@@ -714,7 +714,7 @@ const MarketPrices = () => {
 
             {/* Add vendor button */}
             <div className="mt-4">
-              <button className="w-full bg-green-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-green-700 flex items-center justify-center">
+              <button onClick={() => setCurrentPage('blank')} className="w-full bg-green-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-green-700 flex items-center justify-center">
                 <span className="mr-1">➕</span> Register Your Market
               </button>
             </div>
@@ -919,7 +919,7 @@ const MarketPrices = () => {
                   <div className="flex items-start">
                     <div className="text-3xl mr-4">🚚</div>
                     <div>
-                      <h4 className="font-bold text-gray-800 mb-1">AgroTruck Network</h4>
+                      <h4 className="font-bold text-gray-800 mb-1">Sajilo Truck</h4>
                       <p className="text-gray-600 text-sm mb-2">Our network of trusted drivers who can transport your produce from farm to market at affordable rates.</p>
                       <button className="bg-green-600 text-white text-sm font-medium py-1 px-3 rounded hover:bg-green-700">
                         Request Pickup
