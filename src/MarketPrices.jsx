@@ -1352,7 +1352,7 @@ const MarketPrices = ({ setCurrentPage }) => {
                     <span>{resource.type === 'video' ? resource.duration : resource.type === 'pdf' ? resource.size : resource.readTime}</span>
                     <span>{resource.author}</span>
                   </div>
-                  <button className="w-full mt-3 bg-green-600 text-white text-sm font-medium py-1.5 px-3 rounded hover:bg-green-700">
+                  <button className="w-full mt-3 bg-green-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-700 transition active:scale-95 text-sm">
                     {resource.type === 'video' ? 'Watch Now' : resource.type === 'pdf' ? 'Download' : 'Read Article'}
                   </button>
                 </div>

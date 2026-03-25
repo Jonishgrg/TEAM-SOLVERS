@@ -11,6 +11,8 @@ const LoginPage = ({ onLogin, setCurrentPage }) => {
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showRegPassword, setShowRegPassword] = useState(false);
   const [newsItems] = useState([
     {
       id: 1,
@@ -172,15 +174,33 @@ const LoginPage = ({ onLogin, setCurrentPage }) => {
                     <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="password">
                       Password
                     </label>
-                    <input
-                      id="password"
-                      type="password"
-                      placeholder="Enter your password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2 sm:py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition"
-                      required
-                    />
+                    <div className="relative">
+                      <input
+                        id="password"
+                        type={showPassword ? 'text' : 'password'}
+                        placeholder="Enter your password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full border border-gray-300 rounded-lg px-4 py-2 sm:py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition pr-10"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowPassword(!showPassword)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                      >
+                        {showPassword ? (
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-4.803m5.596-3.856a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0c0 1.657-.672 3.157-1.757 4.243A6 6 0 0121 12a6 6 0 00-6-6 6 6 0 00-4.243 1.757M9 1l3 3m0 0l3-3m-3 3v8" />
+                          </svg>
+                        ) : (
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
                   </div>
                   
                   <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3 sm:gap-0">
@@ -299,15 +319,33 @@ const LoginPage = ({ onLogin, setCurrentPage }) => {
                     <label className="block text-gray-700 text-sm font-medium mb-2" htmlFor="regPassword">
                       Password
                     </label>
-                    <input
-                      id="regPassword"
-                      type="password"
-                      placeholder="Create a strong password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                      className="w-full border border-gray-300 rounded-lg px-4 py-2 sm:py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition"
-                      required
-                    />
+                    <div className="relative">
+                      <input
+                        id="regPassword"
+                        type={showRegPassword ? 'text' : 'password'}
+                        placeholder="Create a strong password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        className="w-full border border-gray-300 rounded-lg px-4 py-2 sm:py-3 text-sm focus:outline-none focus:ring-2 focus:ring-green-500 transition pr-10"
+                        required
+                      />
+                      <button
+                        type="button"
+                        onClick={() => setShowRegPassword(!showRegPassword)}
+                        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700 focus:outline-none"
+                      >
+                        {showRegPassword ? (
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-4.803m5.596-3.856a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0M15 12a3 3 0 11-6 0 3 3 0 016 0zm6 0c0 1.657-.672 3.157-1.757 4.243A6 6 0 0121 12a6 6 0 00-6-6 6 6 0 00-4.243 1.757M9 1l3 3m0 0l3-3m-3 3v8" />
+                          </svg>
+                        ) : (
+                          <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                          </svg>
+                        )}
+                      </button>
+                    </div>
                   </div>
                   
                   <button

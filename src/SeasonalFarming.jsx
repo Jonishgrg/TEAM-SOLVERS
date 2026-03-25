@@ -276,14 +276,14 @@ const SeasonalFarming = ({ setCurrentPage }) => {
                     href={video.youtubeLink}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-full bg-green-600 text-white py-2 rounded-lg hover:bg-green-700 text-center"
+                    className="w-full bg-green-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-green-700 transition active:scale-95 text-center block text-sm"
                   >
                     Watch Now
                   </a>
                 ) : (
                   <button
                     onClick={() => setShowPremiumModal(true)}
-                    className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700"
+                    className="w-full bg-blue-600 text-white font-bold py-3 px-4 rounded-lg hover:bg-blue-700 transition active:scale-95 text-sm"
                   >
                     Unlock Premium
                   </button>
