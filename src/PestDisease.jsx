@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PestDisease = () => {
+const PestDisease = ({ setCurrentPage }) => {
   return (
     <section>
       <h2 className="text-2xl font-bold text-gray-800 mb-6">Pest & Disease Detection AI</h2>
@@ -20,16 +20,16 @@ const PestDisease = () => {
         <div className="max-w-md mx-auto">
           <div className="border-2 border-dashed border-gray-300 rounded-xl p-8 text-center hover:border-green-500 transition-colors cursor-pointer">
             <p className="text-gray-500 mb-4">Tap to take a photo or upload from gallery</p>
-            <button className="bg-green-600 text-white font-bold py-2 px-6 rounded-full hover:bg-green-700">
+            <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white font-bold py-2.5 px-6 rounded-full hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500">
               Take Photo
             </button>
           </div>
           
           <div className="mt-6 flex space-x-3">
-            <button className="flex-1 bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-200">
+            <button onClick={() => setCurrentPage('blank')} className="flex-1 bg-gray-100 text-gray-700 font-bold py-2.5 px-4 rounded-lg hover:bg-gray-200 hover:shadow-md transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-400">
               Upload Image
             </button>
-            <button className="flex-1 bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-200">
+            <button onClick={() => setCurrentPage('blank')} className="flex-1 bg-gray-100 text-gray-700 font-bold py-2.5 px-4 rounded-lg hover:bg-gray-200 hover:shadow-md transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-400">
               Browse History
             </button>
           </div>

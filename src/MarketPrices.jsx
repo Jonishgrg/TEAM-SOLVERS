@@ -33,7 +33,7 @@ const ChangeMapView = ({ center }) => {
   return null;
 };
 
-const MarketPrices = ({ setCurrentPage }) => {
+const MarketPrices = ({ setCurrentPage, products = [] }) => {
   const [marketPriceData, setMarketPriceData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [visibleData, setVisibleData] = useState([]); // First 8 items
@@ -103,25 +103,48 @@ const MarketPrices = ({ setCurrentPage }) => {
     location: ''
   });
 
-  // Products, fertilizers, and local items for trading
-  const [tradingItems] = useState([
+  // Demo trading items (base data)
+  const baseTradingItems = [
     { id: 1, type: 'crop', name: 'Premium Rice', price: 70, seller: 'Ram Sharma', location: 'Chitwan', image: 'rice.jpg', quantity: '100 kg' },
     { id: 2, type: 'crop', name: 'Organic Tomatoes', price: 85, seller: 'Sita Thapa', location: 'Kavre', image: 'tomatoes.jpg', quantity: '50 kg' },
-    { id: 3, type: 'fertilizer', name: 'Organic Compost', price: 20, seller: 'Agro Nepal', location: 'Kathmandu', image: 'compost.jpg', quantity: '25 kg bags' },
-    { id: 4, type: 'fertilizer', name: 'NPK 20-20-20', price: 1200, seller: 'Farmer Supplies Co.', location: 'Bharatpur', image: 'npk.jpg', quantity: '50 kg bags' },
-    { id: 5, type: 'local', name: 'Handmade Bamboo Baskets', price: 350, seller: 'Harka Tamang', location: 'Gorkha', image: 'baskets.jpg', quantity: '10 pieces' },
-    { id: 6, type: 'local', name: 'Natural Honey', price: 800, seller: 'Mountain Bee Farm', location: 'Dhading', image: 'honey.jpg', quantity: '1 kg jars' },
-    { id: 7, type: 'crop', name: 'Fresh Cauliflower', price: 65, seller: 'Bishnu KC', location: 'Pokhara', image: 'cauliflower.jpg', quantity: '40 kg' },
-    { id: 8, type: 'crop', name: 'Green Chillies', price: 120, seller: 'Maya Gurung', location: 'Lamjung', image: 'chillies.jpg', quantity: '10 kg' },
-    { id: 9, type: 'fertilizer', name: 'Vermicompost', price: 35, seller: 'Green Earth', location: 'Lalitpur', image: 'vermicompost.jpg', quantity: '20 kg bags' },
-    { id: 10, type: 'local', name: 'Traditional Dhaka Cloth', price: 1200, seller: 'Nepali Crafts', location: 'Bhaktapur', image: 'dhaka.jpg', quantity: '5 meters' },
-    { id: 11, type: 'crop', name: 'Fresh Ginger', price: 115, seller: 'Prakash Magar', location: 'Palpa', image: 'ginger.jpg', quantity: '25 kg' },
-    { id: 12, type: 'local', name: 'Himalayan Pink Salt', price: 250, seller: 'Mountain Treasures', location: 'Mustang', image: 'salt.jpg', quantity: '1 kg packs' }
-  ]);
+    { id: 3, type: 'local', name: 'Handmade Bamboo Baskets', price: 350, seller: 'Harka Tamang', location: 'Gorkha', image: 'baskets.jpg', quantity: '10 pieces' },
+    { id: 4, type: 'local', name: 'Natural Honey', price: 800, seller: 'Mountain Bee Farm', location: 'Dhading', image: 'honey.jpg', quantity: '1 kg jars' },
+    { id: 5, type: 'crop', name: 'Fresh Cauliflower', price: 65, seller: 'Bishnu KC', location: 'Pokhara', image: 'cauliflower.jpg', quantity: '40 kg' },
+    { id: 6, type: 'crop', name: 'Green Chillies', price: 120, seller: 'Maya Gurung', location: 'Lamjung', image: 'chillies.jpg', quantity: '10 kg' },
+    { id: 7, type: 'local', name: 'Traditional Dhaka Cloth', price: 1200, seller: 'Nepali Crafts', location: 'Bhaktapur', image: 'dhaka.jpg', quantity: '5 meters' },
+    { id: 8, type: 'crop', name: 'Fresh Ginger', price: 115, seller: 'Prakash Magar', location: 'Palpa', image: 'ginger.jpg', quantity: '25 kg' },
+    { id: 9, type: 'local', name: 'Himalayan Pink Salt', price: 250, seller: 'Mountain Treasures', location: 'Mustang', image: 'salt.jpg', quantity: '1 kg packs' }
+  ];
   
-  const [visibleTradingItems, setVisibleTradingItems] = useState([]);
+  // Products and local items for trading - merged in effect
+  const [tradingItems, setTradingItems] = useState([...baseTradingItems]);
+  const [visibleTradingItems, setVisibleTradingItems] = useState([...baseTradingItems]);
   const [tradingFilter, setTradingFilter] = useState('all');
   const [tradingSearchTerm, setTradingSearchTerm] = useState('');
+
+  // Merge user products with demo trading items
+  useEffect(() => {
+    let allItems = [...baseTradingItems];
+    
+    // Add user products to the top of the list
+    if (products && products.length > 0) {
+      const userProducts = products.map(p => ({
+        id: p.id + 1000,
+        type: 'crop',
+        name: p.name,
+        price: p.price,
+        seller: 'Your Farm',
+        location: 'Local',
+        image: p.image,
+        quantity: `${p.quantity} ${p.unit}`,
+        category: p.category,
+        description: p.description
+      }));
+      allItems = [...userProducts, ...baseTradingItems];
+    }
+    
+    setTradingItems(allItems);
+  }, [products]);
 
   // Community Forum state
   const [communityPosts] = useState([
@@ -400,8 +423,20 @@ const MarketPrices = ({ setCurrentPage }) => {
   // Handle product form submit
   const handleProductSubmit = (e) => {
     e.preventDefault();
-    // Here you would typically send the data to your backend
-    alert('Product information submitted successfully!');
+
+    const newProduct = {
+      id: tradingItems.length ? Math.max(...tradingItems.map(item => item.id)) + 1 : 1,
+      type: 'crop', // default category for produce; adapt if needed
+      name: productForm.productName.trim() || 'Unnamed Product',
+      price: Number(productForm.price) || 0,
+      quantity: `${productForm.quantity} kg`,
+      location: productForm.location.trim() || 'Unknown',
+      seller: 'You',
+      image: 'default-product.png'
+    };
+
+    setTradingItems(prev => [...prev, newProduct]);
+
     setProductForm({
       productName: '',
       quantity: '',
@@ -410,6 +445,11 @@ const MarketPrices = ({ setCurrentPage }) => {
       availability: '',
       location: ''
     });
+
+    setTradingFilter('all');
+    setTradingSearchTerm('');
+
+    alert('Product successfully listed in Trading Hub!');
   };
 
   // Handle trading filter change
@@ -447,43 +487,43 @@ const MarketPrices = ({ setCurrentPage }) => {
           <div className="hidden md:flex flex-wrap space-x-1 space-y-0">
             <button 
               onClick={() => setActiveTab('prices')} 
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === 'prices' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer active:scale-95 ${activeTab === 'prices' ? 'bg-green-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
             >
               Prices
             </button>
             <button 
               onClick={() => setActiveTab('map')} 
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === 'map' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer active:scale-95 ${activeTab === 'map' ? 'bg-green-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
             >
               Map
             </button>
             <button 
               onClick={() => setActiveTab('marketplace')} 
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === 'marketplace' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer active:scale-95 ${activeTab === 'marketplace' ? 'bg-green-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
             >
               Market
             </button>
             <button 
               onClick={() => setActiveTab('trading')} 
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === 'trading' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer active:scale-95 ${activeTab === 'trading' ? 'bg-green-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
             >
               Trading
             </button>
             <button 
               onClick={() => setActiveTab('community')} 
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === 'community' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer active:scale-95 ${activeTab === 'community' ? 'bg-green-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
             >
               Community
             </button>
             <button 
               onClick={() => setActiveTab('resources')} 
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === 'resources' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer active:scale-95 ${activeTab === 'resources' ? 'bg-green-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
             >
               Resources
             </button>
             <button 
               onClick={() => setActiveTab('analytics')} 
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium ${activeTab === 'analytics' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-all duration-200 cursor-pointer active:scale-95 ${activeTab === 'analytics' ? 'bg-green-600 text-white shadow-md' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'}`}
             >
               Analytics
             </button>
@@ -569,7 +609,7 @@ const MarketPrices = ({ setCurrentPage }) => {
           
           <div className="bg-white p-4 rounded-lg shadow-sm">
             <h4 className="text-lg font-bold text-green-700 mb-2">Simple Data Entry</h4>
-            <p className="text-gray-600">Easily list your produce with quantity, quality, and availability information.</p>
+            <p className="text-gray-600">Easily list your product with quantity, quality, and availability information.</p>
           </div>
         </div>
         
@@ -714,7 +754,7 @@ const MarketPrices = ({ setCurrentPage }) => {
 
             {/* Add vendor button */}
             <div className="mt-4">
-              <button onClick={() => setCurrentPage('blank')} className="w-full bg-green-600 text-white font-medium py-2 px-4 rounded-lg hover:bg-green-700 flex items-center justify-center">
+              <button onClick={() => setCurrentPage('blank')} className="w-full bg-green-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-700 transition active:scale-95 flex items-center justify-center">
                 <span className="mr-1">➕</span> Register Your Market
               </button>
             </div>
@@ -767,7 +807,7 @@ const MarketPrices = ({ setCurrentPage }) => {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Left Side - Product Listing Form */}
           <div className="bg-white rounded-xl shadow-md p-6">
-            <h3 className="text-xl font-bold text-green-700 mb-4">List Your Produce</h3>
+            <h3 className="text-xl font-bold text-green-700 mb-4">List Your Product</h3>
             <p className="text-gray-600 text-sm mb-4">
               Add your produce to the marketplace for vendors to see and purchase directly.
             </p>
@@ -911,30 +951,30 @@ const MarketPrices = ({ setCurrentPage }) => {
             </div>
             
             {/* Transportation Options */}
-            <div className="bg-white rounded-xl shadow-md p-6 mb-6">
-              <h3 className="text-xl font-bold text-green-700 mb-4">Transportation Options</h3>
+            <div className="bg-white rounded-xl shadow-md p-4 sm:p-6 mb-6">
+              <h3 className="text-lg sm:text-xl font-bold text-green-700 mb-4">Transportation Options</h3>
               
-              <div className="space-y-4">
-                <div className="border border-gray-200 rounded-lg p-4 hover:border-green-500 transition-colors">
-                  <div className="flex items-start">
-                    <div className="text-3xl mr-4">🚚</div>
-                    <div>
-                      <h4 className="font-bold text-gray-800 mb-1">Sajilo Truck</h4>
-                      <p className="text-gray-600 text-sm mb-2">Our network of trusted drivers who can transport your produce from farm to market at affordable rates.</p>
-                      <button className="bg-green-600 text-white text-sm font-medium py-1 px-3 rounded hover:bg-green-700">
+              <div className="space-y-3 sm:space-y-4">
+                <div className="border border-gray-200 rounded-lg p-4 sm:p-5 hover:border-green-500 transition-colors">
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+                    <div className="text-3xl sm:text-4xl flex-shrink-0">🚚</div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-bold text-gray-800 mb-1 text-sm sm:text-base">Sajilo Truck</h4>
+                      <p className="text-gray-600 text-xs sm:text-sm mb-3">Our network of trusted drivers who can transport your produce from farm to market at affordable rates.</p>
+                      <button className="bg-green-600 text-white text-xs sm:text-sm font-bold py-2 px-3 sm:px-4 rounded-lg hover:bg-green-700 transition active:scale-95 w-full sm:w-auto">
                         Request Pickup
                       </button>
                     </div>
                   </div>
                 </div>
                 
-                <div className="border border-gray-200 rounded-lg p-4 hover:border-green-500 transition-colors">
-                  <div className="flex items-start">
-                    <div className="text-3xl mr-4">👨‍🌾</div>
-                    <div>
-                      <h4 className="font-bold text-gray-800 mb-1">Farmer Cooperatives</h4>
-                      <p className="text-gray-600 text-sm mb-2">Join forces with other farmers in your area to share transportation costs to major markets.</p>
-                      <button className="bg-green-600 text-white text-sm font-medium py-1 px-3 rounded hover:bg-green-700">
+                <div className="border border-gray-200 rounded-lg p-4 sm:p-5 hover:border-green-500 transition-colors">
+                  <div className="flex flex-col sm:flex-row sm:items-start gap-3 sm:gap-4">
+                    <div className="text-3xl sm:text-4xl flex-shrink-0">👨‍🌾</div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="font-bold text-gray-800 mb-1 text-sm sm:text-base">Farmer Cooperatives</h4>
+                      <p className="text-gray-600 text-xs sm:text-sm mb-3">Join forces with other farmers in your area to share transportation costs to major markets.</p>
+                      <button className="bg-green-600 text-white text-xs sm:text-sm font-bold py-2 px-3 sm:px-4 rounded-lg hover:bg-green-700 transition active:scale-95 w-full sm:w-auto">
                         Find Cooperatives
                       </button>
                     </div>
@@ -947,7 +987,7 @@ const MarketPrices = ({ setCurrentPage }) => {
                     <div>
                       <h4 className="font-bold text-gray-800 mb-1">Vendor Pickup</h4>
                       <p className="text-gray-600 text-sm mb-2">Some vendors offer direct pickup from your farm for large orders. Negotiate this option during sales.</p>
-                      <button className="bg-green-600 text-white text-sm font-medium py-1 px-3 rounded hover:bg-green-700">
+                      <button className="bg-green-600 text-white text-sm font-medium py-1 px-3 rounded hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500">
                         Vendor Directory
                       </button>
                     </div>
@@ -1031,28 +1071,22 @@ const MarketPrices = ({ setCurrentPage }) => {
                 />
                 <span className="absolute right-3 top-2.5 text-gray-400">🔍</span>
               </div>
-              <div className="flex flex-wrap gap-1">
+              <div className="flex flex-wrap gap-2 w-full md:w-auto">
                 <button 
                   onClick={() => handleTradingFilterChange('all')} 
-                  className={`px-3 py-1.5 rounded text-xs font-medium ${tradingFilter === 'all' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+                  className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap ${tradingFilter === 'all' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} transition`}
                 >
                   All Items
                 </button>
                 <button 
                   onClick={() => handleTradingFilterChange('crop')} 
-                  className={`px-3 py-1.5 rounded text-xs font-medium ${tradingFilter === 'crop' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+                  className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap ${tradingFilter === 'crop' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} transition`}
                 >
                   Crops
                 </button>
                 <button 
-                  onClick={() => handleTradingFilterChange('fertilizer')} 
-                  className={`px-3 py-1.5 rounded text-xs font-medium ${tradingFilter === 'fertilizer' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
-                >
-                  Fertilizers
-                </button>
-                <button 
                   onClick={() => handleTradingFilterChange('local')} 
-                  className={`px-3 py-1.5 rounded text-xs font-medium ${tradingFilter === 'local' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700'}`}
+                  className={`px-4 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap ${tradingFilter === 'local' ? 'bg-green-600 text-white' : 'bg-gray-200 text-gray-700 hover:bg-gray-300'} transition`}
                 >
                   Local Products
                 </button>
@@ -1092,7 +1126,7 @@ const MarketPrices = ({ setCurrentPage }) => {
                     <span className="text-xs text-gray-500">{item.location}</span>
                     <span className="text-xs text-gray-500">Seller: {item.seller}</span>
                   </div>
-                  <button className="w-full mt-3 bg-green-600 text-white text-sm font-medium py-1.5 px-3 rounded hover:bg-green-700">
+                  <button onClick={() => setCurrentPage('ask')} className="w-full mt-4 bg-green-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-700 transition active:scale-95 text-sm">
                     Contact Seller
                   </button>
                 </div>
@@ -1107,7 +1141,7 @@ const MarketPrices = ({ setCurrentPage }) => {
                 <h4 className="text-lg font-bold text-green-800 mb-2">Have something to sell?</h4>
                 <p className="text-gray-700">List your crops, fertilizers, or local products for other farmers to purchase.</p>
               </div>
-              <button className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 inline-flex items-center">
+              <button className="bg-green-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-green-700 transition active:scale-95 inline-flex items-center text-sm sm:text-base">
                 <span className="mr-2">➕</span> List New Item
               </button>
             </div>
@@ -1121,11 +1155,6 @@ const MarketPrices = ({ setCurrentPage }) => {
               <div className="bg-green-50 rounded-lg p-4 text-center hover:bg-green-100 cursor-pointer">
                 <div className="text-3xl mb-2">🌾</div>
                 <h5 className="font-medium text-green-800">Organic Crops</h5>
-              </div>
-              
-              <div className="bg-blue-50 rounded-lg p-4 text-center hover:bg-blue-100 cursor-pointer">
-                <div className="text-3xl mb-2">💧</div>
-                <h5 className="font-medium text-blue-800">Bio Fertilizers</h5>
               </div>
               
               <div className="bg-amber-50 rounded-lg p-4 text-center hover:bg-amber-100 cursor-pointer">
@@ -1173,7 +1202,7 @@ const MarketPrices = ({ setCurrentPage }) => {
             <div className="bg-white rounded-xl shadow-md p-6 mb-6">
               <div className="flex justify-between items-center mb-6">
                 <h3 className="text-xl font-bold text-green-700">Farmer's Community Forum</h3>
-                <button className="bg-green-600 text-white py-1.5 px-4 rounded-lg hover:bg-green-700 inline-flex items-center text-sm">
+                <button className="bg-green-600 text-white py-1.5 px-4 rounded-lg hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 inline-flex items-center text-sm">
                   <span className="mr-1">✏️</span> Create Post
                 </button>
               </div>
@@ -1197,13 +1226,13 @@ const MarketPrices = ({ setCurrentPage }) => {
                     <div className="flex justify-between items-center text-sm border-t border-gray-100 pt-3">
                       <span className="text-gray-600">By {post.author}</span>
                       <div className="flex items-center space-x-4">
-                        <button className="flex items-center text-gray-500 hover:text-green-600">
+                        <button className="flex items-center text-gray-500 hover:text-green-600 transition-colors cursor-pointer active:scale-90 focus:outline-none">
                           <span className="mr-1">👍</span> {post.likes}
                         </button>
-                        <button className="flex items-center text-gray-500 hover:text-green-600">
+                        <button className="flex items-center text-gray-500 hover:text-green-600 transition-colors cursor-pointer active:scale-90 focus:outline-none">
                           <span className="mr-1">💬</span> {post.comments}
                         </button>
-                        <button className="flex items-center text-gray-500 hover:text-green-600">
+                        <button className="flex items-center text-gray-500 hover:text-green-600 transition-colors cursor-pointer active:scale-90 focus:outline-none">
                           <span className="mr-1">📤</span> Share
                         </button>
                       </div>
@@ -1213,7 +1242,7 @@ const MarketPrices = ({ setCurrentPage }) => {
               </div>
               
               <div className="mt-6 text-center">
-                <button className="bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 inline-flex items-center">
+                <button className="bg-gray-100 text-gray-700 py-2 px-4 rounded-lg hover:bg-gray-200 hover:shadow-md transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-400 inline-flex items-center">
                   <span className="mr-1">🔄</span> Load More Posts
                 </button>
               </div>
@@ -1257,26 +1286,26 @@ const MarketPrices = ({ setCurrentPage }) => {
                 <div className="border-l-4 border-green-500 pl-3">
                   <h4 className="font-medium text-gray-800">Organic Farming Workshop</h4>
                   <p className="text-xs text-gray-500 mb-1">March 15 • Kathmandu</p>
-                  <button className="text-green-600 text-xs font-medium hover:underline">
+                  <button className="text-green-600 text-xs font-medium hover:text-green-700 hover:underline transition-colors cursor-pointer active:scale-90 focus:outline-none">
                     Register Now
                   </button>
                 </div>
                 <div className="border-l-4 border-green-500 pl-3">
                   <h4 className="font-medium text-gray-800">Agricultural Tech Expo</h4>
                   <p className="text-xs text-gray-500 mb-1">March 22-24 • Pokhara</p>
-                  <button className="text-green-600 text-xs font-medium hover:underline">
+                  <button className="text-green-600 text-xs font-medium hover:text-green-700 hover:underline transition-colors cursor-pointer active:scale-90 focus:outline-none">
                     Register Now
                   </button>
                 </div>
                 <div className="border-l-4 border-green-500 pl-3">
                   <h4 className="font-medium text-gray-800">Farmer's Market Day</h4>
                   <p className="text-xs text-gray-500 mb-1">April 5 • Bharatpur</p>
-                  <button className="text-green-600 text-xs font-medium hover:underline">
+                  <button className="text-green-600 text-xs font-medium hover:text-green-700 hover:underline transition-colors cursor-pointer active:scale-90 focus:outline-none">
                     Register Now
                   </button>
                 </div>
               </div>
-              <button className="w-full mt-4 bg-gray-100 text-gray-700 py-1.5 px-3 rounded-lg hover:bg-gray-200 text-sm">
+              <button className="w-full mt-4 bg-gray-100 text-gray-700 py-1.5 px-3 rounded-lg hover:bg-gray-200 hover:shadow-md transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-400 text-sm">
                 View All Events
               </button>
             </div>
@@ -1297,7 +1326,7 @@ const MarketPrices = ({ setCurrentPage }) => {
                   </div>
                 </div>
               </div>
-              <button className="w-full bg-green-600 text-white py-1.5 px-3 rounded-lg hover:bg-green-700 text-sm">
+              <button className="w-full bg-green-600 text-white py-1.5 px-3 rounded-lg hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 text-sm font-medium">
                 Share Your Story
               </button>
             </div>
@@ -1311,16 +1340,16 @@ const MarketPrices = ({ setCurrentPage }) => {
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-6">
             <h3 className="text-xl font-bold text-green-700 mb-3 md:mb-0">Educational Resources</h3>
             <div className="flex flex-wrap gap-2">
-              <button className="px-4 py-2 rounded-lg text-sm font-medium bg-green-600 text-white">
+              <button className="px-4 py-2 rounded-lg text-sm font-medium bg-green-600 text-white hover:shadow-md transition-all duration-200 active:scale-95 cursor-pointer">
                 All
               </button>
-              <button className="px-4 py-2 rounded-lg text-sm font-medium bg-gray-200 text-gray-700">
+              <button className="px-4 py-2 rounded-lg text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all duration-200 active:scale-95 cursor-pointer">
                 Videos
               </button>
-              <button className="px-4 py-2 rounded-lg text-sm font-medium bg-gray-200 text-gray-700">
+              <button className="px-4 py-2 rounded-lg text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all duration-200 active:scale-95 cursor-pointer">
                 Articles
               </button>
-              <button className="px-4 py-2 rounded-lg text-sm font-medium bg-gray-200 text-gray-700">
+              <button className="px-4 py-2 rounded-lg text-sm font-medium bg-gray-200 text-gray-700 hover:bg-gray-300 transition-all duration-200 active:scale-95 cursor-pointer">
                 Documents
               </button>
             </div>
@@ -1352,7 +1381,7 @@ const MarketPrices = ({ setCurrentPage }) => {
                     <span>{resource.type === 'video' ? resource.duration : resource.type === 'pdf' ? resource.size : resource.readTime}</span>
                     <span>{resource.author}</span>
                   </div>
-                  <button className="w-full mt-3 bg-green-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-700 transition active:scale-95 text-sm">
+                  <button className="w-full mt-3 bg-green-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 text-sm">
                     {resource.type === 'video' ? 'Watch Now' : resource.type === 'pdf' ? 'Download' : 'Read Article'}
                   </button>
                 </div>
@@ -1367,7 +1396,7 @@ const MarketPrices = ({ setCurrentPage }) => {
                 <h4 className="text-lg font-bold text-green-800 mb-2">Can't find what you need?</h4>
                 <p className="text-gray-700">Let us know what agricultural topics you'd like to learn more about.</p>
               </div>
-              <button className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 inline-flex items-center">
+              <button className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 inline-flex items-center">
                 Request Resources
               </button>
             </div>
@@ -1394,7 +1423,7 @@ const MarketPrices = ({ setCurrentPage }) => {
                     </div>
                     <span className="text-xs text-gray-600">Nepal Agricultural University</span>
                   </div>
-                  <button className="bg-green-600 text-white text-xs font-medium py-1 px-3 rounded hover:bg-green-700">
+                  <button className="bg-green-600 text-white text-xs font-medium py-1 px-3 rounded hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500">
                     Enroll Now
                   </button>
                 </div>
@@ -1416,7 +1445,7 @@ const MarketPrices = ({ setCurrentPage }) => {
                     </div>
                     <span className="text-xs text-gray-600">Business Skills Institute</span>
                   </div>
-                  <button className="bg-green-600 text-white text-xs font-medium py-1 px-3 rounded hover:bg-green-700">
+                  <button className="bg-green-600 text-white text-xs font-medium py-1 px-3 rounded hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500">
                     Enroll Now
                   </button>
                 </div>
@@ -1835,7 +1864,7 @@ const MarketPrices = ({ setCurrentPage }) => {
           )}
           
           <div className="mt-6 flex justify-center">
-            <button className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 inline-flex items-center">
+            <button className="bg-green-600 text-white py-2 px-6 rounded-lg hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 inline-flex items-center">
               <span className="mr-2">📊</span> Download Full Analytics Report
             </button>
           </div>

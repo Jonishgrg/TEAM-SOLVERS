@@ -8,7 +8,7 @@ const BlankPage = ({ goBack }) => {
         <p className="text-gray-600 text-lg mb-8">This feature is under development.</p>
         <button 
           onClick={goBack}
-          className="bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700 transition"
+          className="bg-green-600 text-white font-bold py-2.5 px-6 rounded-lg hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500"
         >
           ← Go Back
         </button>

@@ -79,6 +79,118 @@ const farmProduceData = [
   { commodity: "Honey", category: "Others", area: "N/A", production: "4,308", yield: "N/A", demandLevel: "High", bestSellingMarket: "Kathmandu", storageTips: "Glass bottles", profitabilitySuggestion: "Market as organic for premium sales", priceHistory: [{ year: 2020, price: 650 }, { year: 2021, price: 700 }, { year: 2022, price: 750 }, { year: 2023, price: 800 }] }
 ];
 
+// User accounts (in-memory storage for demo - for production use database and hashed passwords)
+let users = [
+  {
+    id: 'user-1',
+    username: 'happyfarmer',
+    password: 'teamsolver',
+    role: 'farmer',
+    fullName: 'Happy Farmer',
+    email: 'happyfarmer@example.com',
+    phone: '+9779800000000',
+    farmSize: '2 acres'
+  },
+  {
+    id: 'user-2',
+    username: 'buyerone',
+    password: 'teamsolver',
+    role: 'buyer',
+    fullName: 'Buyer One',
+    email: 'buyerone@example.com',
+    phone: '+9779800000001',
+    farmSize: '0'
+  }
+];
+
+// Authentication middleware (simple token existence check for demo)
+const authMiddleware = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Unauthorized: missing token' });
+  }
+  const token = authHeader.replace('Bearer ', '').trim();
+  // In production, verify JWT or session token. Here we accept any non-empty token for demo.
+  if (!token) {
+    return res.status(401).json({ error: 'Unauthorized: invalid token' });
+  }
+  next();
+};
+
+// Authentication endpoints
+app.post('/api/auth/login', (req, res) => {
+  const { username, password } = req.body;
+  if (!username || !password) {
+    return res.status(400).json({ error: 'Username and password are required.' });
+  }
+
+  const user = users.find(u => u.username.toLowerCase() === username.trim().toLowerCase());
+  if (!user || user.password !== password) {
+    return res.status(401).json({ error: 'Invalid username or password.' });
+  }
+
+  const responseUser = {
+    id: user.id,
+    username: user.username,
+    role: user.role,
+    fullName: user.fullName,
+    email: user.email,
+    phone: user.phone,
+    farmSize: user.farmSize
+  };
+
+  // Dummy token for title; replace with JWT in production.
+  res.json({
+    user: responseUser,
+    token: 'demo-auth-token'
+  });
+});
+
+app.post('/api/auth/register', (req, res) => {
+  const { username, password, fullName, email, phone, farmSize, role } = req.body;
+  if (!username || !password || !fullName || !email || !phone || !role) {
+    return res.status(400).json({ error: 'Missing required fields.' });
+  }
+
+  if (users.some(u => u.username.toLowerCase() === username.trim().toLowerCase())) {
+    return res.status(409).json({ error: 'Username already exists.' });
+  }
+
+  const newUser = {
+    id: `user-${Date.now()}`,
+    username: username.trim().toLowerCase(),
+    password,
+    role,
+    fullName: fullName.trim(),
+    email: email.trim(),
+    phone: phone.trim(),
+    farmSize: farmSize ? farmSize.trim() : ''
+  };
+
+  users.push(newUser);
+
+  const responseUser = {
+    id: newUser.id,
+    username: newUser.username,
+    role: newUser.role,
+    fullName: newUser.fullName,
+    email: newUser.email,
+    phone: newUser.phone,
+    farmSize: newUser.farmSize
+  };
+
+  res.status(201).json({
+    user: responseUser,
+    token: 'demo-auth-token'
+  });
+});
+
+// Protected route example
+app.get('/api/auth/me', authMiddleware, (req, res) => {
+  // In prod, read user from token. Demo returns fixed data
+  res.json({ message: 'Authenticated', isAuthenticated: true });
+});
+
 // Track marketplace listings
 let marketplaceListings = [
   {

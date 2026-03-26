@@ -72,7 +72,7 @@ const FinancialHelp = ({ setCurrentPage }) => {
                     <p className="text-sm text-gray-500">
                       Deadline: <span className="font-medium">{item.deadline}</span>
                     </p>
-                    <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white text-sm font-medium py-1 px-3 rounded hover:bg-green-700">
+                    <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white text-sm font-bold py-2 px-3 rounded-lg hover:bg-green-700 hover:shadow-md transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500">
                       Apply Now
                     </button>
                   </div>
@@ -117,7 +117,7 @@ const FinancialHelp = ({ setCurrentPage }) => {
                   className="w-full border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-green-500"
                 />
               </div>
-              <button onClick={() => setCurrentPage('blank')} className="w-full bg-green-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-green-700">
+              <button onClick={() => setCurrentPage('blank')} className="w-full bg-green-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500">
                 Check Eligibility
               </button>
             </form>

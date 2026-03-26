@@ -232,7 +232,7 @@ const WeatherForecast = ({ setCurrentPage }) => {
               <p className="text-gray-700">Get precise agricultural forecasting, historical analysis, and SMS alerts</p>
             </div>
           </div>
-          <button onClick={() => setCurrentPage('blank')} className="bg-purple-600 hover:bg-purple-700 text-white py-2 px-6 rounded-lg text-sm font-medium">
+          <button onClick={() => setCurrentPage('blank')} className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2.5 px-6 rounded-lg text-sm transition active:scale-95">
             Upgrade to Premium
           </button>
         </div>
@@ -251,7 +251,7 @@ const WeatherForecast = ({ setCurrentPage }) => {
                 <p className="text-gray-500">Updated just now</p>
               </div>
               <div className="flex items-center">
-                <button onClick={() => setCurrentPage('blank')} className="bg-green-50 hover:bg-green-100 text-green-600 font-medium py-2 px-4 rounded-lg text-sm">
+                <button onClick={() => setCurrentPage('blank')} className="bg-green-50 hover:bg-green-100 text-green-600 font-bold py-2.5 px-4 rounded-lg text-sm transition active:scale-95">
                   Subscribe to Alerts
                 </button>
               </div>
@@ -366,7 +366,7 @@ const WeatherForecast = ({ setCurrentPage }) => {
               </div>
               
               <div className="flex justify-between items-center mt-4">
-                <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white text-sm font-medium py-2 px-4 rounded hover:bg-green-700">
+                <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white text-sm font-bold py-2 px-4 rounded-lg hover:bg-green-700 transition active:scale-95">
                   Subscribe to SMS Alerts
                 </button>
                 <span className="text-xs text-gray-500">Coming soon: SMS Notifications</span>
@@ -472,48 +472,48 @@ const WeatherForecast = ({ setCurrentPage }) => {
       </div>
       
       {/* Premium Long-term Weather Forecast */}
-      <div className="mt-6 bg-white rounded-xl shadow-md overflow-hidden p-6">
-        <div className="flex justify-between items-center mb-4">
-          <h3 className="text-xl font-bold text-gray-800">Long-term Weather Planning</h3>
-          <span className="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded-full">
+      <div className="mt-6 bg-white rounded-xl shadow-md overflow-hidden p-4 sm:p-6">
+        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-4">
+          <h3 className="text-lg sm:text-xl font-bold text-gray-800">Long-term Weather Planning</h3>
+          <span className="bg-purple-100 text-purple-800 text-xs font-medium px-2 py-1 rounded-full w-fit">
             PREMIUM FEATURE
           </span>
         </div>
         
-        <div className="bg-gray-100 rounded-lg p-8 text-center relative overflow-hidden mb-6">
+        <div className="bg-gray-100 rounded-lg p-6 sm:p-8 text-center relative overflow-hidden mb-6">
           <div className="absolute inset-0 bg-gradient-to-r from-purple-100/40 to-blue-100/40"></div>
           <div className="relative">
-            <img src="/src/assets/Weather-Icon.png" alt="Long-term weather forecast" className="mx-auto rounded-lg opacity-40 max-w-full h-20" />
-            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full">
-              <h4 className="text-xl font-bold text-purple-800 mb-2">6-Month Agricultural Forecast</h4>
-              <p className="text-gray-700 mb-4">Plan your farming activities with confidence using our 6-month to 1-year weather predictions</p>
-              <button className="bg-purple-600 text-white py-2 px-6 rounded-lg hover:bg-purple-700 font-medium">
+            <img src="/src/assets/Weather-Icon.png" alt="Long-term weather forecast" className="mx-auto rounded-lg opacity-40 max-w-full h-16 sm:h-20" />
+            <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-full px-4">
+              <h4 className="text-lg sm:text-xl font-bold text-purple-800 mb-2">6-Month Agricultural Forecast</h4>
+              <p className="text-sm sm:text-base text-gray-700 mb-4">Plan your farming activities with confidence using our 6-month to 1-year weather predictions</p>
+              <button className="bg-purple-600 text-white font-bold py-2.5 sm:py-3 px-6 sm:px-8 rounded-lg hover:bg-purple-700 transition active:scale-95 text-sm sm:text-base">
                 Unlock Premium Access
               </button>
             </div>
           </div>
         </div>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="border border-gray-200 rounded-lg p-4">
-            <h4 className="font-bold text-gray-800 flex items-center mb-3">
-              <span className="text-xl mr-2">📈</span>Historical Weather Trends
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+          <div className="border border-gray-200 rounded-lg p-4 sm:p-5 hover:border-purple-400 transition-colors">
+            <h4 className="font-bold text-gray-800 flex items-center mb-3 text-sm sm:text-base">
+              <span className="text-xl sm:text-2xl mr-2">📈</span>Historical Weather Trends
             </h4>
-            <p className="text-gray-600 mb-3">Access 10+ years of weather data for your location to identify patterns and make informed farming decisions.</p>
+            <p className="text-gray-600 mb-3 text-sm">Access 10+ years of weather data for your location to identify patterns and make informed farming decisions.</p>
             <div className="border-t border-gray-100 pt-3 mt-2">
-              <button className="text-purple-600 font-medium flex items-center text-sm">
+              <button className="text-purple-600 font-bold flex items-center text-sm hover:text-purple-700 transition active:scale-95">
                 View Historical Analysis <span className="ml-1">→</span>
               </button>
             </div>
           </div>
           
-          <div className="border border-gray-200 rounded-lg p-4">
-            <h4 className="font-bold text-gray-800 flex items-center mb-3">
-              <span className="text-xl mr-2">🚜</span>Seasonal Planning Guide
+          <div className="border border-gray-200 rounded-lg p-4 sm:p-5 hover:border-purple-400 transition-colors">
+            <h4 className="font-bold text-gray-800 flex items-center mb-3 text-sm sm:text-base">
+              <span className="text-xl sm:text-2xl mr-2">🚜</span>Seasonal Planning Guide
             </h4>
-            <p className="text-gray-600 mb-3">Get customized planting and harvesting schedules based on long-term weather predictions for your specific crops.</p>
+            <p className="text-gray-600 mb-3 text-sm">Get customized planting and harvesting schedules based on long-term weather predictions for your specific crops.</p>
             <div className="border-t border-gray-100 pt-3 mt-2">
-              <button className="text-purple-600 font-medium flex items-center text-sm">
+              <button className="text-purple-600 font-bold flex items-center text-sm hover:text-purple-700 transition active:scale-95">
                 Generate Custom Calendar <span className="ml-1">→</span>
               </button>
             </div>
@@ -522,15 +522,15 @@ const WeatherForecast = ({ setCurrentPage }) => {
       </div>
       
       {/* Future Updates Banner */}
-      <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4 flex flex-col md:flex-row items-center justify-between">
-        <div className="flex items-center mb-3 md:mb-0">
-          <span className="text-2xl mr-3">📱</span>
+      <div className="mt-6 bg-blue-50 border border-blue-200 rounded-xl p-4 sm:p-6 flex flex-col sm:flex-row items-start sm:items-center gap-4 sm:gap-0 sm:justify-between">
+        <div className="flex items-start sm:items-center gap-3 sm:gap-4 flex-1">
+          <span className="text-2xl sm:text-3xl flex-shrink-0">📱</span>
           <div>
-            <h4 className="font-bold text-gray-800">Coming Soon: Weather SMS Alerts in Nepali</h4>
-            <p className="text-sm text-gray-600">Get timely weather alerts and farming advice in Nepali directly on your mobile phone.</p>
+            <h4 className="font-bold text-gray-800 text-sm sm:text-base">Coming Soon: Weather SMS Alerts in Nepali</h4>
+            <p className="text-xs sm:text-sm text-gray-600">Get timely weather alerts and farming advice in Nepali directly on your mobile phone.</p>
           </div>
         </div>
-        <button className="bg-blue-600 text-white py-2 px-4 rounded-lg hover:bg-blue-700 text-sm font-medium">
+        <button className="bg-blue-600 text-white font-bold py-2.5 px-4 rounded-lg hover:bg-blue-700 text-sm transition active:scale-95">
           Join Waiting List
         </button>
       </div>

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClick }) => {
+const Header = ({ currentPage, setCurrentPage, isLoggedIn, userRole, onLogout, onLoginClick }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
 
@@ -26,42 +26,42 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
           <div className="hidden md:flex items-center space-x-6 flex-grow justify-center">
             <a 
               href="#" 
-              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'home' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition-all hover:text-green-600 active:scale-95 cursor-pointer ${currentPage === 'home' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('home');}}
             >
               Home
             </a>
             <a 
               href="#" 
-              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'market' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition-all hover:text-green-600 active:scale-95 cursor-pointer ${currentPage === 'market' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('market');}}
             >
               Market Prices
             </a>
             <a 
               href="#" 
-              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'techniques' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition-all hover:text-green-600 active:scale-95 cursor-pointer ${currentPage === 'techniques' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('techniques');}}
             >
               Seasonal Farming
             </a>
             <a 
               href="#" 
-              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'ask' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition-all hover:text-green-600 active:scale-95 cursor-pointer ${currentPage === 'ask' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('ask');}}
             >
               Ask
             </a>
             <a 
               href="#" 
-              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'weather' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition-all hover:text-green-600 active:scale-95 cursor-pointer ${currentPage === 'weather' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('weather');}}
             >
               Weather
             </a>
             <a 
               href="#" 
-              className={`text-sm font-medium transition hover:text-green-600 ${currentPage === 'financial' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
+              className={`text-sm font-medium transition-all hover:text-green-600 active:scale-95 cursor-pointer ${currentPage === 'financial' ? 'font-bold border-b-2 border-green-600 text-green-600 pb-1' : ''}`}
               onClick={(e) => {e.preventDefault(); setCurrentPage('financial');}}
             >
               Financial Help
@@ -73,7 +73,7 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
             {isLoggedIn ? (
               <div className="relative">
                 <button 
-                  className="p-2 rounded-full text-xl text-gray-700 hover:text-green-600 transition"
+                  className="p-2 rounded-full text-xl text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200 active:scale-90 cursor-pointer"
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
                 >
                   👤
@@ -81,43 +81,75 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
                 {showProfileMenu && (
                   <div className="absolute right-0 mt-2 w-48 bg-white rounded-lg shadow-lg overflow-hidden z-20">
                     <div className="py-1">
+                      <div className="px-4 py-2 text-sm font-bold text-green-600 border-b border-gray-100">
+                        {userRole === 'farmer' ? '🌾 Farmer' : '🛒 Buyer'}
+                      </div>
+                      {userRole === 'farmer' ? (
+                        <>
+                          <a 
+                            href="#" 
+                            className={`block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors cursor-pointer active:bg-green-100 ${currentPage === 'farmer-dashboard' ? 'bg-green-50 font-bold' : ''}`}
+                            onClick={(e) => {
+                              e.preventDefault(); 
+                              setCurrentPage('farmer-dashboard');
+                              setShowProfileMenu(false);
+                            }}
+                          >
+                            📦 My Dashboard
+                          </a>
+                          <a 
+                            href="#" 
+                            className={`block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors cursor-pointer active:bg-green-100 ${currentPage === 'chat' ? 'bg-green-50 font-bold' : ''}`}
+                            onClick={(e) => {
+                              e.preventDefault(); 
+                              setCurrentPage('chat');
+                              setShowProfileMenu(false);
+                            }}
+                          >
+                            💬 Messages
+                          </a>
+                        </>
+                      ) : (
+                        <>
+                          <a 
+                            href="#" 
+                            className={`block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 transition-colors cursor-pointer active:bg-blue-100 ${currentPage === 'buyer-dashboard' ? 'bg-blue-50 font-bold' : ''}`}
+                            onClick={(e) => {
+                              e.preventDefault(); 
+                              setCurrentPage('buyer-dashboard');
+                              setShowProfileMenu(false);
+                            }}
+                          >
+                            🛒 Browse Products
+                          </a>
+                          <a 
+                            href="#" 
+                            className={`block px-4 py-2 text-sm text-gray-700 hover:bg-blue-50 transition-colors cursor-pointer active:bg-blue-100 ${currentPage === 'chat' ? 'bg-blue-50 font-bold' : ''}`}
+                            onClick={(e) => {
+                              e.preventDefault(); 
+                              setCurrentPage('chat');
+                              setShowProfileMenu(false);
+                            }}
+                          >
+                            💬 Messages
+                          </a>
+                        </>
+                      )}
                       <a 
                         href="#" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition"
+                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition-colors cursor-pointer active:bg-green-100"
                         onClick={(e) => {
                           e.preventDefault(); 
                           setCurrentPage('profile');
                           setShowProfileMenu(false);
                         }}
                       >
-                        My Profile
-                      </a>
-                      <a 
-                        href="#" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition"
-                        onClick={(e) => {
-                          e.preventDefault(); 
-                          setCurrentPage('dashboard');
-                          setShowProfileMenu(false);
-                        }}
-                      >
-                        Dashboard
-                      </a>
-                      <a 
-                        href="#" 
-                        className="block px-4 py-2 text-sm text-gray-700 hover:bg-green-50 transition"
-                        onClick={(e) => {
-                          e.preventDefault(); 
-                          setCurrentPage('transactions');
-                          setShowProfileMenu(false);
-                        }}
-                      >
-                        My Transactions
+                        👤 My Profile
                       </a>
                       <div className="border-t border-gray-100"></div>
                       <a 
                         href="#" 
-                        className="block px-4 py-2 text-sm text-red-600 hover:bg-green-50 transition"
+                        className="block px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors cursor-pointer active:bg-red-100"
                         onClick={(e) => {
                           e.preventDefault();
                           setShowProfileMenu(false);
@@ -132,7 +164,7 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
               </div>
             ) : (
               <button
-                className="bg-green-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-green-700 transition-all"
+                className="bg-green-600 text-white px-4 py-2.5 rounded-lg text-sm font-bold hover:bg-green-700 transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 onClick={onLoginClick}
               >
                 Sign In
@@ -141,7 +173,7 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
             
             {/* Mobile menu toggle */}
             <button 
-              className="md:hidden p-2 text-gray-700"
+              className="md:hidden p-2 text-gray-700 hover:text-green-600 hover:bg-green-50 transition-all duration-200 active:scale-90 cursor-pointer rounded-lg"
               onClick={toggleMobileMenu}
             >
               {isMobileMenuOpen ? "✕" : "☰"}
@@ -160,6 +192,46 @@ const Header = ({ currentPage, setCurrentPage, isLoggedIn, onLogout, onLoginClic
               >
                 Home
               </a>
+              {isLoggedIn && (
+                <>
+                  {userRole === 'farmer' ? (
+                    <>
+                      <a 
+                        href="#" 
+                        className={currentPage === 'farmer-dashboard' ? 'font-bold text-green-600' : 'text-green-600 font-medium'}
+                        onClick={(e) => {e.preventDefault(); setCurrentPage('farmer-dashboard'); setIsMobileMenuOpen(false);}}
+                      >
+                        📦 My Dashboard
+                      </a>
+                      <a 
+                        href="#" 
+                        className={currentPage === 'chat' ? 'font-bold text-green-600' : 'text-green-600 font-medium'}
+                        onClick={(e) => {e.preventDefault(); setCurrentPage('chat'); setIsMobileMenuOpen(false);}}
+                      >
+                        💬 Messages
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      <a 
+                        href="#" 
+                        className={currentPage === 'buyer-dashboard' ? 'font-bold text-blue-600' : 'text-blue-600 font-medium'}
+                        onClick={(e) => {e.preventDefault(); setCurrentPage('buyer-dashboard'); setIsMobileMenuOpen(false);}}
+                      >
+                        🛒 Browse Products
+                      </a>
+                      <a 
+                        href="#" 
+                        className={currentPage === 'chat' ? 'font-bold text-blue-600' : 'text-blue-600 font-medium'}
+                        onClick={(e) => {e.preventDefault(); setCurrentPage('chat'); setIsMobileMenuOpen(false);}}
+                      >
+                        💬 Messages
+                      </a>
+                    </>
+                  )}
+                  <div className="border-t border-gray-200"></div>
+                </>
+              )}
               <a 
                 href="#" 
                 className={currentPage === 'market' ? 'font-bold' : ''}

@@ -68,12 +68,12 @@ const AskExperts = ({ setCurrentPage }) => {
                 <label className="block text-gray-700 mb-2">Attach Images (Optional)</label>
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-4 text-center hover:border-green-500 transition-colors">
                   <p className="text-gray-500 mb-2">Upload images to help experts better understand your issue</p>
-                  <button type="button" onClick={() => setCurrentPage('blank')} className="bg-gray-100 text-gray-700 font-medium py-2 px-4 rounded-lg hover:bg-gray-200">
+                  <button type="button" onClick={() => setCurrentPage('blank')} className="bg-gray-100 text-gray-700 font-bold py-2.5 px-4 rounded-lg hover:bg-gray-200 hover:shadow-md transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-gray-400">
                     Select Files
                   </button>
                 </div>
               </div>
-              <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white font-bold py-2 px-6 rounded-lg hover:bg-green-700">
+              <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white font-bold py-2.5 px-6 rounded-lg hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500">
                 Submit Question
               </button>
             </form>
@@ -95,15 +95,15 @@ const AskExperts = ({ setCurrentPage }) => {
                 </div>
               ))}
             </div>
-            <button onClick={() => setCurrentPage('blank')} className="mt-6 text-green-600 font-medium flex items-center">
+            <button onClick={() => setCurrentPage('blank')} className="mt-6 text-green-600 font-medium flex items-center hover:text-green-700 transition-colors cursor-pointer active:scale-95 hover:underline">
               View More Questions <span className="ml-1">→</span>
             </button>
           </div>
           
-          <div className="bg-green-50 rounded-xl shadow-md overflow-hidden p-6 mt-6">
-            <h3 className="text-lg font-bold text-green-700 mb-3">Get Expert Advice Faster</h3>
-            <p className="text-gray-600 mb-4">Join our WhatsApp channel for quick responses from our farming experts.</p>
-            <button className="bg-green-600 text-white w-full font-bold py-2 px-4 rounded-lg hover:bg-green-700 flex items-center justify-center">
+          <div className="bg-green-50 rounded-xl shadow-md overflow-hidden p-4 sm:p-6 mt-6">
+            <h3 className="text-base sm:text-lg font-bold text-green-700 mb-2 sm:mb-3">Get Expert Advice Faster</h3>
+            <p className="text-gray-600 mb-4 text-sm sm:text-base">Join our WhatsApp channel for quick responses from our farming experts.</p>
+            <button className="bg-green-600 text-white w-full font-bold py-2.5 sm:py-3 px-4 rounded-lg hover:bg-green-700 hover:shadow-lg transition-all duration-200 active:scale-95 cursor-pointer focus:outline-none focus:ring-2 focus:ring-green-500 flex items-center justify-center text-sm sm:text-base">
               <span className="mr-2">Join WhatsApp Channel</span> 📱
             </button>
           </div>

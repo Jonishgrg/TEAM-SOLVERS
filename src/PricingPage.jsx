@@ -61,7 +61,7 @@ const PricingPage = ({ setCurrentPage }) => {
   };
   
   const handleSubscribe = (plan) => {
-    alert(`Thank you for choosing the ${plan.name} plan! Subscription process will begin.`);
+    setCurrentPage('blank');
   };
 
   return (
@@ -136,7 +136,7 @@ const PricingPage = ({ setCurrentPage }) => {
                 
                 <button 
                   onClick={() => handleSubscribe(plan)}
-                  className={`w-full py-3 rounded-lg font-medium ${
+                  className={`w-full py-3 rounded-lg font-bold transition active:scale-95 ${
                     plan.recommended 
                       ? 'bg-green-600 text-white hover:bg-green-700' 
                       : 'bg-gray-100 text-gray-800 hover:bg-gray-200'
@@ -154,7 +154,7 @@ const PricingPage = ({ setCurrentPage }) => {
           <p className="text-gray-600 mb-6 max-w-2xl mx-auto">
             We understand that every farming operation is unique. Contact us to discuss a custom plan tailored to your specific needs.
           </p>
-          <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white py-3 px-8 rounded-lg font-medium hover:bg-green-700">
+          <button onClick={() => setCurrentPage('blank')} className="bg-green-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-green-700 transition active:scale-95">
             Contact Our Team
           </button>
         </div>

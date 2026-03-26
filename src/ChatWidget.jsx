@@ -68,7 +68,7 @@ const ChatWidget = ({ onClose }) => {
           />
           <button 
             type="submit"
-            className="bg-green-600 text-white px-4 py-2 rounded-r-lg hover:bg-green-700"
+            className="bg-green-600 text-white px-4 py-2.5 rounded-r-lg hover:bg-green-700 transition active:scale-95 font-bold"
           >
             Send
           </button>
